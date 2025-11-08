@@ -1,0 +1,13 @@
+baseURL = 'https://log.ajilk.com/'
+languageCode = 'en-us'
+title = 'log'
+
+[params]
+  author = "Azimjon Ilkhomov"
+  email = "ajilkhomov@gmail.com"
+
+[menu]
+  [[menu.main]]
+    name = "about"
+    url = "/about/"
+    weight = 1
