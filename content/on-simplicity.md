@@ -21,6 +21,8 @@ do not waste time. the only currency which you cannot retrieve back.
 
 it is a privilege to live your life.
 
-it is a privilege of the living, to die, to leave this world knowing you have lived a life without betrayal towards self
+it is a privilege of the living, to die. 
 
-most of all, have the intelligence to realize that all this take great patience and grace
+it is a privilege to leave this world knowing you have lived a life without betrayal towards self.
+
+most of all, have the intelligence to realize that all this take great patience and grace.
