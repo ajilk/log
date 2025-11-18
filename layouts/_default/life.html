@@ -1,0 +1,160 @@
+{{ define "main" }}
+<style>
+    .content {
+        margin-bottom: 40px;
+        font-size: 0.95em;
+    }
+
+    .birth-input {
+        margin-bottom: 30px;
+        padding: 15px;
+        background: #f5f5f5;
+        border-radius: 3px;
+    }
+
+    .birth-input label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 0.9em;
+    }
+
+    .birth-input input {
+        font-family: monospace;
+        padding: 8px;
+        font-size: 0.95em;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+    }
+
+    .weeks-container {
+        margin-top: 30px;
+    }
+
+    .weeks-row {
+        display: flex;
+        gap: 3px;
+        margin-bottom: 3px;
+    }
+
+    .week {
+        width: 7px;
+        height: 7px;
+        background: #f0f0f0;
+        border: 1px solid #e0e0e0;
+        transition: all 0.2s;
+    }
+
+    .week.lived {
+        background: #333;
+        border-color: #333;
+    }
+
+    .week:hover {
+        transform: scale(1.3);
+        z-index: 10;
+    }
+
+    .stats {
+        margin-top: 30px;
+        padding: 20px;
+        background: #f5f5f5;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+
+    .stats p {
+        margin: 5px 0;
+    }
+</style>
+
+<h1>{{ .Title }}</h1>
+
+<div class="content">{{ .Content }}</div>
+
+<div class="birth-input">
+    <label for="birthdate">enter your birth date</label>
+    <input type="date" id="birthdate" />
+</div>
+
+<div class="stats" id="stats" style="display: none"></div>
+
+<div class="weeks-container" id="weeks-container"></div>
+
+<script>
+    const WEEKS_PER_YEAR = 52;
+    const LIFE_EXPECTANCY_YEARS = 80;
+    const TOTAL_WEEKS = WEEKS_PER_YEAR * LIFE_EXPECTANCY_YEARS;
+
+    const birthdateInput = document.getElementById("birthdate");
+    const weeksContainer = document.getElementById("weeks-container");
+    const statsDiv = document.getElementById("stats");
+
+    // Set default date to today or load from localStorage
+    const savedBirthdate = localStorage.getItem("birthdate");
+    const today = new Date().toISOString().split("T")[0];
+
+    if (savedBirthdate) {
+        birthdateInput.value = savedBirthdate;
+        renderWeeks(savedBirthdate);
+    } else {
+        birthdateInput.value = today;
+        renderWeeks(today);
+    }
+
+    birthdateInput.addEventListener("change", (e) => {
+        const birthdate = e.target.value;
+        if (birthdate) {
+            localStorage.setItem("birthdate", birthdate);
+            renderWeeks(birthdate);
+        }
+    });
+
+    function renderWeeks(birthdate) {
+        const birth = new Date(birthdate);
+        const now = new Date();
+        const weeksLived = Math.floor(
+            (now - birth) / (7 * 24 * 60 * 60 * 1000),
+        );
+
+        weeksContainer.innerHTML = "";
+
+        for (let year = 0; year < LIFE_EXPECTANCY_YEARS; year++) {
+            const row = document.createElement("div");
+            row.className = "weeks-row";
+
+            for (let week = 0; week < WEEKS_PER_YEAR; week++) {
+                const weekNum = year * WEEKS_PER_YEAR + week;
+                const weekDiv = document.createElement("div");
+                weekDiv.className = "week";
+
+                if (weekNum < weeksLived) {
+                    weekDiv.classList.add("lived");
+                }
+
+                row.appendChild(weekDiv);
+            }
+
+            weeksContainer.appendChild(row);
+        }
+
+        // Show stats
+        const weeksRemaining = TOTAL_WEEKS - weeksLived;
+        const yearsLived = (weeksLived / WEEKS_PER_YEAR).toFixed(1);
+        const percentLived = ((weeksLived / TOTAL_WEEKS) * 100).toFixed(1);
+
+        statsDiv.style.display = "block";
+        statsDiv.innerHTML = `
+            <p>weeks lived: ${weeksLived.toLocaleString()}</p>
+            <p>weeks remaining: ${weeksRemaining.toLocaleString()}</p>
+            <p>years lived: ${yearsLived}</p>
+            <p>life lived: ${percentLived}%</p>
+        `;
+    }
+</script>
+{{ if not .IsHome }}
+<div class="terminal-nav">
+    <div class="back-nav">
+        <a href="../" class="back-link">../</a>
+    </div>
+</div>
+{{ end }} {{ end }}
