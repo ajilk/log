@@ -1,0 +1,15 @@
+.fragment-content {
+    font-style: italic;
+}
+
+.fragment-divider {
+    text-align: center;
+    margin: 1rem 0;
+    color: #666;
+    font-size: 0.5rem;
+    letter-spacing: 0.5rem;
+}
+
+.fragment-author {
+    text-align: right;
+}

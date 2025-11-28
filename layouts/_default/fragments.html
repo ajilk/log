@@ -1,0 +1,25 @@
+{{ define "main" }}
+<article>
+    <header>
+        <h1>{{ .Title }}</h1>
+    </header>
+
+    <div>
+        {{ range .Pages.ByDate.Reverse }}
+        <div>
+            <div class="fragment-content">
+                {{ .Content }} {{ if .Params.author }}
+            </div>
+            <div class="fragment-author">
+                — {{ .Params.author }}{{ if .Params.source }}, {{ .Params.source
+                }}{{ end }}
+            </div>
+            {{ end }}
+        </div>
+
+        {{ if not (eq . (index (last 1 $.Pages) 0)) }}
+        <div class="fragment-divider">***</div>
+        {{ end }} {{ end }}
+    </div>
+</article>
+{{ end }}

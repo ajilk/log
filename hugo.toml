@@ -15,3 +15,7 @@ title = 'log'
     name = "life"
     url = "/life/"
     weight = 2
+  [[menu.main]]
+    name = "fragments"
+    url = "/fragments/"
+    weight = 3
