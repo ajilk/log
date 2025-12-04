@@ -3,6 +3,8 @@ date = "2025-11-18T10:54:07-05:00"
 title = "i can't fail if i don't try"
 +++
 
+**i can't fail if i don't try**
+
 wrong!
 
 failure gets a bad rep.  
