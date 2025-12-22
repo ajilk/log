@@ -31,6 +31,8 @@ hugo new content/fragments/fragment-name.md --kind fragment
 
 All new posts are created with `draft = true` by default. Fragments are created with `draft = false`.
 
+For writing style, voice, and content guidelines, refer to `STYLE.md`.
+
 ## Content Structure
 
 The site has three main content sections:
